@@ -1,0 +1,9 @@
+{
+  "name": "drupal/challenge",
+  "type": "drupal-module",
+  "description": "Drupal Challenge Module",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": { }
+}
