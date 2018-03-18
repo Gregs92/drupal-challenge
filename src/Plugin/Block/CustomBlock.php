@@ -3,7 +3,6 @@
 namespace Drupal\challenge\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use \Datetime;
 
 /**
  * Provides a 'Remaining Days' Block.
@@ -19,23 +18,14 @@ class CustomBlock extends BlockBase {
     /**
      * {@inheritdoc}
      */
+
     public function build() {
+        $dateHelper = \Drupal::service('challenge.date_helper');
+
         $node = \Drupal::routeMatch()->getParameter('node');
         $event_timestamp = strtotime($node->get('field_event_date')->value);
-        $event_date = new DateTime();
-        $event_date->setTimeStamp($event_timestamp);
-        $now = new DateTime();
 
-        if ($event_date->format('d-m-Y') == $now->format('d-m-Y')) {
-            $out = 'The event is in progress.';
-        }
-        else if ($event_date > $now) {
-            $diff = $event_date->diff($now);
-            $out = 'Days left to event start: '. $diff->days;
-        }
-        else if ($event_date < $now) {
-            $out = 'The Event has ended.';
-        }
+        $out = $dateHelper->remainingDays($event_timestamp);
 
         $build = [];
         $build['event_days_block_extra_text']['#markup'] = $out;

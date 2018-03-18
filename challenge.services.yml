@@ -1,0 +1,3 @@
+services:
+ challenge.date_helper:
+   class: Drupal\challenge\Service\HelperService
